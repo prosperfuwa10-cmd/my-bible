@@ -1,0 +1,18 @@
+const versionSelect = document.getElementById("version");
+const startBtn = document.getElementById("startBtn");
+
+// Save selected Bible version
+versionSelect.addEventListener("change", () => {
+  localStorage.setItem("bibleVersion", versionSelect.value);
+});
+
+// Load saved version
+const savedVersion = localStorage.getItem("bibleVersion");
+if (savedVersion) {
+  versionSelect.value = savedVersion;
+}
+
+// Start Reading button
+startBtn.addEventListener("click", () => {
+  alert(`Opening ${versionSelect.value.toUpperCase()} Bible...`);
+});
