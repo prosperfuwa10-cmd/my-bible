@@ -19,7 +19,7 @@ startBtn.addEventListener("click", async () => {
 
   const verses = bible.Genesis["1"];
 
-  document.querySelector(".home").innerHTML = `
+  document.getElementById("reader").innerHTML = `
     <h2>Genesis 1 (${version.toUpperCase()})</h2>
     <div id="verses"></div>
   `;
@@ -27,10 +27,35 @@ startBtn.addEventListener("click", async () => {
   const versesDiv = document.getElementById("verses");
 
   Object.keys(verses).forEach(num => {
-    versesDiv.innerHTML += `
-      <p><strong>${num}</strong> ${verses[num]}</p>
-    `;
+    versesDiv.innerHTML += `<p><strong>${num}</strong> ${verses[num]}</p>`;
   });
+});
+
+// Open selected book
+const openBookBtn = document.getElementById("openBookBtn");
+const bookSelect = document.getElementById("bookSelect");
+
+openBookBtn.addEventListener("click", async () => {
+  const version = versionSelect.value;
+  const book = bookSelect.value;
+
+  const response = await fetch(`bible-data/${version}.json`);
+  const bible = await response.json();
+
+  if (!bible[book]) {
+    document.getElementById("reader").innerHTML =
+      `<p>${book} will be added soon.</p>`;
+    return;
+  }
+
+  const chapter = bible[book]["1"];
+  let html = `<h2>${book} 1 (${version.toUpperCase()})</h2>`;
+
+  for (const verse in chapter) {
+    html += `<p><strong>${verse}</strong> ${chapter[verse]}</p>`;
+  }
+
+  document.getElementById("reader").innerHTML = html;
 });
 
 // Register the Service Worker
