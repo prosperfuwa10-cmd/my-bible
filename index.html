@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY BIBLE</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+<header class="header">
+  <h1>📖 MY BIBLE</h1>
+  <p>KJV & WEB Offline Bible</p>
+</header>
+
+<main class="home">
+  <h2>Welcome</h2>
+
+  <label for="version">Bible Version</label>
+  <select id="version">
+    <option value="kjv">King James Version (KJV)</option>
+    <option value="web">World English Bible (WEB)</option>
+  </select>
+
+  <button id="startBtn">Start Reading</button>
+
+  <div class="cards">
+    <div class="card">📚 Old Testament</div>
+    <div class="card">✝️ New Testament</div>
+    <div class="card">🔎 Search</div>
+    <div class="card">🔖 Bookmarks</div>
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
