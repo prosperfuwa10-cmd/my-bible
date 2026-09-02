@@ -8,13 +8,29 @@ versionSelect.addEventListener("change", () => {
 
 // Load saved version
 const savedVersion = localStorage.getItem("bibleVersion");
-if (savedVersion) {
-  versionSelect.value = savedVersion;
-}
+if (savedVersion) versionSelect.value = savedVersion;
 
 // Start Reading button
-startBtn.addEventListener("click", () => {
-  alert(`Opening ${versionSelect.value.toUpperCase()} Bible...`);
+startBtn.addEventListener("click", async () => {
+  const version = versionSelect.value;
+
+  const response = await fetch(`bible-data/${version}.json`);
+  const bible = await response.json();
+
+  const verses = bible.Genesis["1"];
+
+  document.querySelector(".home").innerHTML = `
+    <h2>Genesis 1 (${version.toUpperCase()})</h2>
+    <div id="verses"></div>
+  `;
+
+  const versesDiv = document.getElementById("verses");
+
+  Object.keys(verses).forEach(num => {
+    versesDiv.innerHTML += `
+      <p><strong>${num}</strong> ${verses[num]}</p>
+    `;
+  });
 });
 
 // Register the Service Worker
